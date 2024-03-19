@@ -65,7 +65,7 @@ def main():
     args = parse_options()
     input_dir = args.input
     output_dir = args.out
-    split_save(input_dir, output_dir)
+    split_data(input_dir, output_dir)
 
 if __name__ == "__main__":
     main()
