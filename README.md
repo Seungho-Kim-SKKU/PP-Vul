@@ -1,1 +1,51 @@
-# PP-Vul
+# PP-Vul: Privacy-Preserving Vulnerability Detection via CNN Using Homomorphic Encryption
+
+This repository contains the implementation of *PP-Vul*.
+
+## Requirements
+We have confirned that PP-Vul can be executed on a 64-bit Ubuntu 18.04 system with python3.9
+
+- Python 3.9
+- SEAL-Python 4.0 (https://github.com/Huelse/SEAL-Python)
+- PyTorch
+
+## How to use PP-Vul
+
+### 1. Preprocessing dataset
+- For convenience, the preprocessed dataset is located in [dataset](dataset). If you are using the preprocessed dataset, this part can be skipped.
+- The raw dataset used in this project can be found at: https://github.com/CGCL-codes/VulCNN/tree/main/dataset
+- Normalization code can be found at: https://github.com/CGCL-codes/VulCNN/blob/main/normalization.py
+
+1. Normalization
+
+    - Download the dataset inside [dataset](dataset) folder. 
+    - Unzip the dataset and rename the folder
+    ```python
+    mv Dataset-sard rawdata
+    ```
+    - Normalize the dataset
+    ```python
+    python normalization.py -i ../dataset/rawdata
+    ```
+
+2. Embedding    
+
+    ```python
+    python codet5embedding.py -i ../dataset/normalized/Vul -o ../dataset/embedding/2_line/Vul -n 2
+    ```
+    ```python
+    python codet5embedding.py -i ../dataset/normalized/No-Vul -o ../dataset/embedding/2_line/No-Vul -n 2
+    ```
+3. Split dataset (train:valid:test=7:2:1)
+    ```python
+    python split_data.py -i ../dataset/embedding -o ../dataset/2_line 
+    ```
+
+### 2. Model training (HE-friendly)
+
+
+### 3. Inference using homomorphic encrytion
+
+
+### 4. Model training (Plaintext)
+
