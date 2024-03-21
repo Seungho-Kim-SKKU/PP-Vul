@@ -65,7 +65,7 @@ python main.py -i ../dataset/2_line
 ### 3. Plaintext model
 
 - Default model: Number of kernel = 10, Number of filters = 32, Activation function = ReLU, Max pooling
-- Move to Move to [plaintext_model](plaintext_model) folder.
+- Move to [plaintext_model](plaintext_model) folder.
 
 ```python
 python classifier.py -i ../dataset/1_line
