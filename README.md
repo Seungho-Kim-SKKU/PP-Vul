@@ -35,9 +35,6 @@ python normalization.py -i ../dataset/rawdata
 
 ```python
 python codet5embedding.py -i ../dataset/normalized/Vul -o ../dataset/embedding/2_line/Vul -n 2
-```
-
-```python
 python codet5embedding.py -i ../dataset/normalized/No-Vul -o ../dataset/embedding/2_line/No-Vul -n 2
 ```
 #### 1.3. Split dataset (train:valid:test=7:2:1)
@@ -49,7 +46,7 @@ python split_data.py -i ../dataset/embedding -o ../dataset/2_line
 
 #### 2.1. Model training (HE-friendly)
 
-- Default model: Kernel height = 4, Number of filters = 16, Activation function = $x^3$
+- Default model: Kernel height = 4, Number of filters = 16, Activation function = $x^3$, Depthwise convolution
 - Move to [pp-vul](pp-vul) folder.
 
 ```python
