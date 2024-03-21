@@ -16,36 +16,58 @@ We have confirned that PP-Vul can be executed on a 64-bit Ubuntu 18.04 system wi
 - The raw dataset used in this project can be found at: https://github.com/CGCL-codes/VulCNN/tree/main/dataset
 - Normalization code can be found at: https://github.com/CGCL-codes/VulCNN/blob/main/normalization.py
 
-1. Normalization
+#### 1.1. Normalization
 
-    - Download the dataset inside [dataset](dataset) folder. 
-    - Unzip the dataset and rename the folder
-    ```python
-    mv Dataset-sard rawdata
-    ```
-    - Normalize the dataset
-    ```python
-    python normalization.py -i ../dataset/rawdata
-    ```
+- Download the dataset inside [dataset](dataset) folder. 
+- Unzip the dataset and rename the folder
 
-2. Embedding    
+```python
+mv Dataset-sard rawdata
+```
 
-    ```python
-    python codet5embedding.py -i ../dataset/normalized/Vul -o ../dataset/embedding/2_line/Vul -n 2
-    ```
-    ```python
-    python codet5embedding.py -i ../dataset/normalized/No-Vul -o ../dataset/embedding/2_line/No-Vul -n 2
-    ```
-3. Split dataset (train:valid:test=7:2:1)
-    ```python
-    python split_data.py -i ../dataset/embedding -o ../dataset/2_line 
-    ```
+- Normalize the dataset
+```python
+python normalization.py -i ../dataset/rawdata
+```
 
-### 2. Model training (HE-friendly)
+#### 1.2. Embedding    
+- Move to [preprocessing](preprocessing) folder.
 
+```python
+python codet5embedding.py -i ../dataset/normalized/Vul -o ../dataset/embedding/2_line/Vul -n 2
+```
 
-### 3. Inference using homomorphic encrytion
+```python
+python codet5embedding.py -i ../dataset/normalized/No-Vul -o ../dataset/embedding/2_line/No-Vul -n 2
+```
+#### 1.3. Split dataset (train:valid:test=7:2:1)
 
+```python
+python split_data.py -i ../dataset/embedding -o ../dataset/2_line 
+```
+### 2. PP-Vul
 
-### 4. Model training (Plaintext)
+#### 2.1. Model training (HE-friendly)
+
+- Default model: Kernel height = 4, Number of filters = 16, Activation function = $x^3$
+- Move to [pp-vul](pp-vul) folder.
+
+```python
+python classifier.py -i ../dataset/2_line 
+```
+
+#### 2.2. Inference using homomorphic encrytion
+
+```python
+python main.py -i ../dataset/2_line 
+```
+
+### 3. Plaintext model
+
+- Default model: Number of kernel = 10, Number of filters = 32, Activation function = ReLU, Max pooling
+- Move to Move to [plaintext_model](plaintext_model) folder.
+
+```python
+python classifier.py -i ../dataset/1_line
+```
 
