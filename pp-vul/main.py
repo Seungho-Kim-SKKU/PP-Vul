@@ -7,7 +7,6 @@ from torchvision import datasets
 import numpy as np
 import torch
 from tqdm import tqdm
-
 import sys, os
 import argparse
 import pickle
@@ -56,7 +55,7 @@ if __name__ == "__main__":
     # test_dataset = Dataset(X_test, y_test, max_len=MAX_LEN, hidden_size=HIDDEN_SIZE)
     # test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=num_of_data, shuffle=True)    
     
-    num_of_test = 3337
+    num_of_test = 10
     
     for k in range(num_of_test):
         data = np.zeros(shape=(1, MAX_LEN, HIDDEN_SIZE))
