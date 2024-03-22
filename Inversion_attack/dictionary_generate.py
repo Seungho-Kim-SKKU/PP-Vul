@@ -4,6 +4,12 @@ import random
 import os
 import pickle
 import argparse
+import re
+
+def replace_numbers_with_zero(input_string):
+    pattern = re.compile(r'\d+')
+    result_string = re.sub(pattern, '0', input_string)
+    return result_string
 
 def parse_options():
     parser = argparse.ArgumentParser(description='Generate and split source code dictionary dataset.')
@@ -42,50 +48,43 @@ def main():
             codes.append(' '.join(data[i:i+code_line]))
             i+=code_line-1
 
-    random.seed(1)
     random.shuffle(codes)
 
-    print(len(codes))
     train_size = int(0.8*len(codes))
+    train_codes = codes[:int(len(codes)*0.8)]
+    test_codes = codes[int(len(codes)*0.8):]
+
+    # eliminate numbers
+    for i in range(len(train_codes)):
+        train_codes[i]=replace_numbers_with_zero(train_codes[i])
+        train_codes[i]=train_codes[i].replace("'","\"")
+
+    train_codes=list(set(train_codes))
+
 
     os.makedirs(seva_dict, exist_ok=True)
-    os.makedirs(seva_dict +"train/codes")
-    os.makedirs(seva_dict +"train/embedding")
-    os.makedirs(seva_dict +"test/codes")
-    os.makedirs(seva_dict +"test/embedding")
 
-    for i in range(0,train_size,1):
-        f = open(seva_dict +"train/codes/code_"+str(i)+".txt","w")
-        f.write(codes[i])
+    for i in range(len(train_codes)):
+        f = open(seva_dict +"/train_code_"+str(i)+".txt","w")
+        f.write(train_codes[i])
         f.close()
-        if i%1000==0:
-            print(i,"th code save")
-        
-    for i in range(0,train_size,1):
-        inputs= tokenizer.encode(codes[i], return_tensors="pt").to(device)
+        inputs= tokenizer.encode(train_codes[i], return_tensors="pt").to(device)
         embedding= model(inputs)[0]
-        f = open(seva_dict +"train/embedding/embedding_"+str(i)+".pkl","wb")
+        f = open(seva_dict +"/train_embedding_"+str(i)+".pkl","wb")
         pickle.dump(embedding, f)
         f.close()
-        if i%1000==0:
-            print(i,"th embedding save")
 
-    for i in range(train_size,len(codes),1):
-        f = open(seva_dict +"test/codes/code_"+str(i)+".txt","w")
-        f.write(codes[i])
+
+    for i in range(len(test_codes)):
+        f = open(seva_dict +"/test_code_"+str(i)+".txt","w")
+        f.write(test_codes[i].replace("'","\""))
         f.close()
-        if i%1000==0:
-            print(i,"th code save")
-
-        
-    for i in range(train_size,len(codes),1):
-        inputs= tokenizer.encode(codes[i], return_tensors="pt").to(device)
+        inputs= tokenizer.encode(test_codes[i].replace("'","\""), return_tensors="pt").to(device)
         embedding= model(inputs)[0]
-        f = open(seva_dict +"test/embedding/embedding_"+str(i)+".pkl","wb")
+        f = open(seva_dict +"/test_embedding_"+str(i)+".pkl","wb")
         pickle.dump(embedding, f)
         f.close()
-        if i%1000==0:
-            print(i,"th embedding save")
+
 
 if __name__ == "__main__":
     main()
