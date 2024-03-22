@@ -48,7 +48,6 @@ def main():
             codes.append(' '.join(data[i:i+code_line]))
             i+=code_line-1
 
-    random.seed(1)
     random.shuffle(codes)
 
     train_size = int(0.8*len(codes))
