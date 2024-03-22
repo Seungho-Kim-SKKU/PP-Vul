@@ -168,3 +168,10 @@ cython_debug/
 preprocessing/rawdata
 preprocessing/rawdata_normalized
 preprocessing/embedded
+models
+pp-vul/model
+plaintext/model
+plaintext/models
+dataset/1_line
+dataset/2_line
+dataset/3_line
