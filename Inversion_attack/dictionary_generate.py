@@ -48,6 +48,7 @@ def main():
             codes.append(' '.join(data[i:i+code_line]))
             i+=code_line-1
 
+    random.seed(1)
     random.shuffle(codes)
 
     train_size = int(0.8*len(codes))
@@ -63,25 +64,27 @@ def main():
 
 
     os.makedirs(seva_dict, exist_ok=True)
+    os.makedirs(seva_dict+'/dict', exist_ok=True)
+    os.makedirs(seva_dict+'/test', exist_ok=True)
 
     for i in range(len(train_codes)):
-        f = open(seva_dict +"/train_code_"+str(i)+".txt","w")
+        f = open(seva_dict +"/dict/code_"+str(i)+".txt","w")
         f.write(train_codes[i])
         f.close()
         inputs= tokenizer.encode(train_codes[i], return_tensors="pt").to(device)
         embedding= model(inputs)[0]
-        f = open(seva_dict +"/train_embedding_"+str(i)+".pkl","wb")
+        f = open(seva_dict +"/dict/embedding_"+str(i)+".pkl","wb")
         pickle.dump(embedding, f)
         f.close()
 
 
     for i in range(len(test_codes)):
-        f = open(seva_dict +"/test_code_"+str(i)+".txt","w")
+        f = open(seva_dict +"/test/code_"+str(i)+".txt","w")
         f.write(test_codes[i].replace("'","\""))
         f.close()
         inputs= tokenizer.encode(test_codes[i].replace("'","\""), return_tensors="pt").to(device)
         embedding= model(inputs)[0]
-        f = open(seva_dict +"/test_embedding_"+str(i)+".pkl","wb")
+        f = open(seva_dict +"/test/embedding_"+str(i)+".pkl","wb")
         pickle.dump(embedding, f)
         f.close()
 
