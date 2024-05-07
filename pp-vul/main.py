@@ -37,7 +37,7 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
     model = CNN(hidden_size = HIDDEN_SIZE)
-    model = torch.load(root_dir + '/model/pp-vul_16_4_x^3.pth', map_location=device)
+    model = torch.load(root_dir + '/pp-vul_16_4_x^3.pth', map_location=device)
     
     context = Context(N = 2**14, depth = 5, LogQ = 40, LogP = 60)
     embedding_size = Cuboid(1, MAX_LEN, HIDDEN_SIZE)
