@@ -79,7 +79,7 @@ class CNN(nn.Module):
     def __init__(self, hidden_size = 256, num_classes = 2):
         super(CNN, self).__init__()
         self.filter_sizes1 = 4
-        self.filter_sizes2 = 51 - self.filter_sizes1
+        self.filter_sizes2 = 65 - self.filter_sizes1
         self.num_filters = 16                  
         self.classifier_dropout = 0.1
         self.Conv1 = nn.Conv2d(1, self.num_filters, (self.filter_sizes1, hidden_size))
@@ -100,9 +100,9 @@ class CNN(nn.Module):
         return out
 
 class CNN_Classifier():
-    def __init__(self, max_len=50, n_classes=2, epochs=100, batch_size=32, learning_rate = 0.001, hidden_size = 256):
+    def __init__(self, max_len=64, n_classes=2, epochs=100, batch_size=32, learning_rate = 0.001, hidden_size = 256):
         self.model = CNN(hidden_size)
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         self.max_len = max_len
         self.epochs = epochs 
         self.batch_size = batch_size

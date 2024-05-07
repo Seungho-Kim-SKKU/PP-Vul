@@ -11,7 +11,7 @@ import sys, os
 import argparse
 import pickle
 
-MAX_LEN = 50
+MAX_LEN = 64
 HIDDEN_SIZE = 256
 
 def load_data(filename):
@@ -37,7 +37,7 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
     model = CNN(hidden_size = HIDDEN_SIZE)
-    model = torch.load(root_dir + '/pp-vul_16_4_x^3.pth', map_location=device)
+    model = torch.load(root_dir + '/model/pp-vul_16_4_x^3.pth', map_location=device)
     
     context = Context(N = 2**14, depth = 5, LogQ = 40, LogP = 60)
     embedding_size = Cuboid(1, MAX_LEN, HIDDEN_SIZE)
@@ -70,8 +70,8 @@ def main():
 
         result_decrypted = HE_vul.decrypt(result_ciphertext)[:2]
 
-        print("Plaintext result:", result)
-        print("Ciphertext result:", result_decrypted)
+        # print("Plaintext result:", result)
+        # print("Ciphertext result:", result_decrypted)
         
         # result_1 = 3
         # result_2 = 3
