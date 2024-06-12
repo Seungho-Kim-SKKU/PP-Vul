@@ -12,14 +12,14 @@ We have confirned that PP-Vul can be executed on a 64-bit Ubuntu 18.04 system wi
 ## How to use PP-Vul
 
 ### 1. Preprocessing dataset
-- For convenience, the preprocessed dataset can be found at: https://drive.usercontent.google.com/download?id=1NGslBtKLA1gUex4tjNWbF01O3sFLSHPD&export=download&authuser=1
-- If you are using the preprocessed dataset, this part can be skipped.
 - The raw dataset used in this project can be found at: https://github.com/CGCL-codes/VulCNN/tree/main/dataset
 - Normalization code can be found at: https://github.com/CGCL-codes/VulCNN/blob/main/normalization.py
-
+- For convenience, the preprocessed dataset can be found at: https://drive.usercontent.google.com/download?id=1NGslBtKLA1gUex4tjNWbF01O3sFLSHPD&export=download&authuser=1
+- If you are using the preprocessed dataset, this part can be skipped.
+  
 #### 1.1. Normalization
 
-- Download the dataset inside [dataset](dataset) folder. 
+- Download the raw dataset from the link (https://github.com/CGCL-codes/VulCNN/tree/main/dataset) into [dataset](dataset) folder. 
 - Unzip the dataset and rename the folder
 
 ```python
