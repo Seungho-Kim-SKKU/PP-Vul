@@ -19,7 +19,7 @@ We have confirned that PP-Vul can be executed on a 64-bit Ubuntu 18.04 system wi
   
 #### 1.1. Normalization
 
-- Download the raw dataset from the link (https://github.com/CGCL-codes/VulCNN/tree/main/dataset) into [dataset](dataset) folder. 
+- Download the raw dataset from the link (https://github.com/CGCL-codes/VulCNN/tree/main/dataset) into *dataset* folder. 
 - Unzip the dataset and rename the folder
 
 ```python
@@ -32,7 +32,7 @@ python normalization.py -i ../dataset/rawdata
 ```
 
 #### 1.2. Embedding    
-- Move to [preprocessing](preprocessing) folder.
+- Move to *preprocessing* folder.
 
 ```python
 python codet5embedding.py -i ../dataset/normalized/Vul -o ../dataset/embedding/2_line/Vul -n 2
@@ -48,7 +48,7 @@ python split_data.py -i ../dataset/embedding -o ../dataset/2_line
 #### 2.1. Model training (HE-friendly)
 
 - Default model: Kernel height = 4, Number of filters = 16, Activation function = $x^3$, Depthwise convolution
-- Move to [pp-vul](pp-vul) folder.
+- Move to *pp-vul* folder.
 
 ```python
 python classifier.py -i ../dataset/2_line 
@@ -63,7 +63,7 @@ python main.py -i ../dataset/2_line
 ### 3. Plaintext model
 
 - Default model: Number of kernel = 10, Number of filters = 32, Activation function = ReLU, Max pooling
-- Move to [plaintext_model](plaintext_model) folder.
+- Move to *plaintext_model* folder.
 
 ```python
 python classifier.py -i ../dataset/1_line
