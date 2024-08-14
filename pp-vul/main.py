@@ -32,7 +32,8 @@ def main():
     
     data_path = parse_options().input
     data_path = data_path + "/" if data_path[-1] != "/" else data_path
-    test_df = load_data(data_path + "test.pkl")
+    test_df = load_data(data_path + "train.pkl")
+    print(len(test_df))
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     

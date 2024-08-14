@@ -5,6 +5,11 @@ import pickle
 import torch
 from transformers import AutoModel, AutoTokenizer
 
+# import resource
+
+# memory_limit = 16 * 1024 * 1024 * 1024  # 16GB
+# resource.setrlimit(resource.RLIMIT_AS, (memory_limit, memory_limit))
+
 def parse_options():
     parser = argparse.ArgumentParser(description='CodeT5+ Embedding')
     parser.add_argument('-i', '--input', help='The directory path of input', type=str)
@@ -58,7 +63,8 @@ def main():
     files = glob.glob(input_path + '*.c')
 
     checkpoint = "Salesforce/codet5p-110m-embedding"
-    device = "cuda:0" if torch.cuda.is_available() else "cpu"
+    # device = "cuda:0" if torch.cuda.is_available() else "cpu"
+    device = "cpu"
     
     tokenizer = AutoTokenizer.from_pretrained(checkpoint, trust_remote_code=True)
     model = AutoModel.from_pretrained(checkpoint, trust_remote_code=True).to(device)
