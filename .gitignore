@@ -168,6 +168,8 @@ cython_debug/
 preprocessing/rawdata
 preprocessing/rawdata_normalized
 preprocessing/embedded
+preprocessing/test
+preprocessing/monitor_codet5_embedding.py
 models
 pp-vul/model
 plaintext/model

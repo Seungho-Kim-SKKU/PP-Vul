@@ -1,6 +1,6 @@
 # PP-Vul: Privacy-Preserving Vulnerability Detection via CNN Using Homomorphic Encryption
 
-This repository contains the implementation of *PP-Vul*.
+This repository contains the implementation of ***PP-Vul***.
 
 ## Requirements
 We have confirned that PP-Vul can be executed on a 64-bit Ubuntu 18.04 system with python3.9
@@ -12,14 +12,14 @@ We have confirned that PP-Vul can be executed on a 64-bit Ubuntu 18.04 system wi
 ## How to use PP-Vul
 
 ### 1. Preprocessing dataset
-- For convenience, the preprocessed dataset can be found at: https://drive.usercontent.google.com/download?id=1NGslBtKLA1gUex4tjNWbF01O3sFLSHPD&export=download&authuser=1
-- If you are using the preprocessed dataset, this part can be skipped.
-- The raw dataset used in this project can be found at: https://github.com/CGCL-codes/VulCNN/tree/main/dataset
+- For convenience, the **preprocessed dataset** can be found at: https://drive.usercontent.google.com/download?id=1NGslBtKLA1gUex4tjNWbF01O3sFLSHPD&export=download&authuser=1
+- If you are using the preprocessed dataset, preprocessing part can be skipped.
+- The **raw dataset** used in this project can be found at: https://github.com/CGCL-codes/VulCNN/tree/main/dataset
 - Normalization code can be found at: https://github.com/CGCL-codes/VulCNN/blob/main/normalization.py
 
 #### 1.1. Normalization
 
-- Download the dataset inside [dataset](dataset) folder. 
+- Move the raw dataset to *dataset* folder. 
 - Unzip the dataset and rename the folder
 
 ```python
@@ -32,7 +32,7 @@ python normalization.py -i ../dataset/rawdata
 ```
 
 #### 1.2. Embedding    
-- Move to [preprocessing](preprocessing) folder.
+- Move to *preprocessing* folder.
 
 ```python
 python codet5embedding.py -i ../dataset/normalized/Vul -o ../dataset/embedding/2_line/Vul -n 2
@@ -48,7 +48,7 @@ python split_data.py -i ../dataset/embedding -o ../dataset/2_line
 #### 2.1. Model training (HE-friendly)
 
 - Default model: Kernel height = 4, Number of filters = 16, Activation function = $x^3$, Depthwise convolution
-- Move to [pp-vul](pp-vul) folder.
+- Move to *pp-vul* folder.
 
 ```python
 python classifier.py -i ../dataset/2_line 
