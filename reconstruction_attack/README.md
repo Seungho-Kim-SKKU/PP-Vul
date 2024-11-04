@@ -23,4 +23,4 @@ python dictionary_based.py -i path_dictionary
 | `-i (--input)`  | The path to the dictionary (default: "./dictionary")          |
 
 ## RNN-based attack and LLM-based attack
-For the RNN-based attack and LLN-based attack, we utilize the source codes from [GEIA ACL 2023](https://github.com/username/repository-name](https://github.com/HKUST-KnowComp/GEIA).
+For the RNN-based attack and LLN-based attack, we utilize the source codes from [GEIA, ACL 2023](https://github.com/HKUST-KnowComp/GEIA).
