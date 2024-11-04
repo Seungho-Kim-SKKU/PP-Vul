@@ -15,7 +15,7 @@ def replace_numbers_with_zero(input_string):
 def parse_options():
     parser = argparse.ArgumentParser(description='Generate and split source code dictionary dataset.')
     parser.add_argument('-i', '--input', help='The path of normalized source code.', required=True)
-    parser.add_argument('-o', '--out', help='The path of output dictionary.', required=True)
+    parser.add_argument('-o', '--out', help='The path of output dictionary.', default="./dictionary")
     parser.add_argument('-n', '--line',type=int, help='The number of embedding lines.', default=1)
     args = parser.parse_args()
     return args
