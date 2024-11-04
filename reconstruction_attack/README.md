@@ -16,5 +16,8 @@ python dictionary_generate.py -i path_dataset -o path_dictionary -n number_of_em
 To conduct dictionary_based code reconstruction attack, use the following command format:
 
 ```bash
-python dictionary_generate.py -i path_dataset -o path_dictionary -n number_of_embedding
+python dictionary_based.py -i path_dictionary 
 ```
+| Argument     | Description                                                                   |
+|--------------|-------------------------------------------------------------------------------|
+| `-i` (--input)  |  The path to the dictionary (defualt "./dictionary")          |
