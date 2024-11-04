@@ -5,6 +5,7 @@ import os
 import pickle
 import argparse
 import re
+from time import time
 
 def replace_numbers_with_zero(input_string):
     pattern = re.compile(r'\d+')
@@ -15,11 +16,12 @@ def parse_options():
     parser = argparse.ArgumentParser(description='Generate and split source code dictionary dataset.')
     parser.add_argument('-i', '--input', help='The path of normalized source code.', required=True)
     parser.add_argument('-o', '--out', help='The path of output dictionary.', required=True)
-    parser.add_argument('-n', '--line',type=int, help='The number of embedding lines.', required=True)
+    parser.add_argument('-n', '--line',type=int, help='The number of embedding lines.', default=1)
     args = parser.parse_args()
     return args
 
 def main():
+    start = time()
     args = parse_options()
     code_line =args.line
     seva_dict = args.out
@@ -30,7 +32,7 @@ def main():
     model = AutoModel.from_pretrained(checkpoint, trust_remote_code=True).to(device)
 
     codes = []
-    code_path = args.input+ "No-Vul"
+    code_path = args.input+"/Vul"
     for file_name in os.listdir(code_path):
         f = open(code_path+'/'+file_name, 'r')
         data = f.readlines()
@@ -39,7 +41,7 @@ def main():
             codes.append(' '.join(data[i:i+code_line]))
             i+=code_line-1
 
-    code_path = args.input+ "Vul"
+    code_path = args.input+"/No-Vul"
     for file_name in os.listdir(code_path):
         f = open(code_path+'/'+file_name, 'r')
         data = f.readlines()
@@ -57,26 +59,18 @@ def main():
 
     # eliminate numbers
     for i in range(len(train_codes)):
-        train_codes[i]=replace_numbers_with_zero(train_codes[i])
+        #train_codes[i]=replace_numbers_with_zero(train_codes[i])
         train_codes[i]=train_codes[i].replace("'","\"")
 
     train_codes=list(set(train_codes))
+    test_codes = list(set(test_codes))
 
+    print(len(train_codes))
+    print(len( test_codes ))
 
     os.makedirs(seva_dict, exist_ok=True)
     os.makedirs(seva_dict+'/dict', exist_ok=True)
-    os.makedirs(seva_dict+'/test', exist_ok=True)
-
-    for i in range(len(train_codes)):
-        f = open(seva_dict +"/dict/code_"+str(i)+".txt","w")
-        f.write(train_codes[i])
-        f.close()
-        inputs= tokenizer.encode(train_codes[i], return_tensors="pt").to(device)
-        embedding= model(inputs)[0]
-        f = open(seva_dict +"/dict/embedding_"+str(i)+".pkl","wb")
-        pickle.dump(embedding, f)
-        f.close()
-
+    os.makedirs(seva_dict+'/test', exist_ok=True) 
 
     for i in range(len(test_codes)):
         f = open(seva_dict +"/test/code_"+str(i)+".txt","w")
@@ -85,6 +79,19 @@ def main():
         inputs= tokenizer.encode(test_codes[i].replace("'","\""), return_tensors="pt").to(device)
         embedding= model(inputs)[0]
         f = open(seva_dict +"/test/embedding_"+str(i)+".pkl","wb")
+        pickle.dump(embedding, f)
+        f.close()
+    print("time:",time()-start)
+
+
+    for i in range(len(train_codes)):
+        
+        f = open(seva_dict +"/dict/code_"+str(i)+".txt","w")
+        f.write(train_codes[i])
+        f.close()
+        inputs= tokenizer.encode(train_codes[i], return_tensors="pt").to(device)
+        embedding= model(inputs)[0]
+        f = open(seva_dict +"/dict/embedding_"+str(i)+".pkl","wb")
         pickle.dump(embedding, f)
         f.close()
 
